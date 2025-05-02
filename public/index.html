@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xat Realtime</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="chat-container">
+    <!-- Formulari d'entrada (nom d'usuari i sala) -->
+    <form id="join-form">
+      <input id="username" placeholder="Nom" required />
+      <input id="room" placeholder="Sala" required />
+      <button type="submit" id="join-btn">Entrar</button>
+    </form>
+
+    <!-- Xat (només visible quan estàs unit a una sala) -->
+    <div id="chat-box" style="display: none;">
+      <div id="chat-header">
+        <h3 id="room-name"></h3>
+        <button id="leave-btn">Sortir</button>
+      </div>
+      <div id="chat-window">
+        <ul id="messages"></ul>
+      </div>
+      <form id="form">
+        <input id="input" autocomplete="off" placeholder="Missatge" required />
+        <button>Enviar</button>
+      </form>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js" defer></script>
+</body>
+</html>
