@@ -1,35 +1,117 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Xat Realtime</title>
+  <title>Chat en Tiempo Real</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="chat-container">
-    <!-- Formulari d'entrada (nom d'usuari i sala) -->
-    <form id="join-form">
-      <input id="username" placeholder="Nom" required />
-      <input id="room" placeholder="Sala" required />
-      <button type="submit" id="join-btn">Entrar</button>
-    </form>
+    <!-- Pantalla de inicio con opciones de autenticación -->
+    <div id="auth-screen">
+      <h2>Chat en Tiempo Real</h2>
+      
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Iniciar Sesión</button>
+        <button class="auth-tab" data-tab="register">Registrarse</button>
+        <button class="auth-tab" data-tab="guest">Invitado</button>
+      </div>
+      
+      <!-- Formulario de inicio de sesión -->
+      <form id="login-form" class="auth-form">
+        <div class="form-group">
+          <label for="login-username">Usuario</label>
+          <input id="login-username" type="text" placeholder="Nombre de usuario" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Contraseña</label>
+          <input id="login-password" type="password" placeholder="Contraseña" required>
+        </div>
+        <button type="submit" class="auth-button">Iniciar Sesión</button>
+        <p id="login-error" class="error-message"></p>
+      </form>
+      
+      <!-- Formulario de registro -->
+      <form id="register-form" class="auth-form" style="display: none;">
+        <div class="form-group">
+          <label for="register-username">Usuario</label>
+          <input id="register-username" type="text" placeholder="Elige un nombre de usuario" required>
+        </div>
+        <div class="form-group">
+          <label for="register-password">Contraseña</label>
+          <input id="register-password" type="password" placeholder="Elige una contraseña" required>
+        </div>
+        <div class="form-group">
+          <label for="register-confirm">Confirmar Contraseña</label>
+          <input id="register-confirm" type="password" placeholder="Confirma tu contraseña" required>
+        </div>
+        <button type="submit" class="auth-button">Registrarse</button>
+        <p id="register-error" class="error-message"></p>
+        <p id="register-success" class="success-message"></p>
+      </form>
+      
+      <!-- Formulario de invitado (el original) -->
+      <form id="guest-form" class="auth-form" style="display: none;">
+        <div class="form-group">
+          <label for="guest-username">Nombre de Invitado</label>
+          <input id="guest-username" type="text" placeholder="Tu nombre como invitado" required>
+        </div>
+        <button type="submit" class="auth-button">Continuar como Invitado</button>
+      </form>
+    </div>
+    
+    <!-- Pantalla de selección de canal -->
+    <div id="channel-screen" style="display: none;">
+      <div id="user-header">
+        <h3 id="welcome-message">Bienvenido</h3>
+        <button id="logout-btn">Cerrar Sesión</button>
+      </div>
+      
+      <div id="channels-container">
+        <h3>Canales Disponibles</h3>
+        <ul id="channels-list"></ul>
+        
+        <!-- Solo visible para usuarios registrados -->
+        <div id="create-channel-container">
+          <form id="create-channel-form">
+            <input id="new-channel-name" type="text" placeholder="Nombre del nuevo canal" required>
+            <button type="submit">Crear Canal</button>
+          </form>
+        </div>
+      </div>
+    </div>
 
-    <!-- Xat (només visible quan estàs unit a una sala) -->
+    <!-- Pantalla de chat (mejorada con controles de administrador) -->
     <div id="chat-box" style="display: none;">
       <div id="chat-header">
         <h3 id="room-name"></h3>
-        <button id="leave-btn">Sortir</button>
+        <div id="admin-controls" style="display: none;">
+          <button id="admin-menu-btn">Opciones de Admin</button>
+          <div id="admin-actions" class="dropdown-content"></div>
+        </div>
+        <button id="leave-btn">Volver a Canales</button>
       </div>
+      
+      <div id="chat-info">
+        <div id="channel-settings" style="display: none;"></div>
+        <div id="users-container">
+          <h4>Usuarios en el canal</h4>
+          <ul id="users-list"></ul>
+        </div>
+      </div>
+      
       <div id="chat-window">
         <ul id="messages"></ul>
       </div>
+      
       <form id="form">
-        <input id="input" autocomplete="off" placeholder="Missatge" required />
+        <input id="input" autocomplete="off" placeholder="Mensaje" required>
         <button>Enviar</button>
       </form>
     </div>
   </div>
+  
   <script src="/socket.io/socket.io.js"></script>
   <script src="client.js" defer></script>
 </body>

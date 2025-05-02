@@ -1,0 +1,18 @@
+{
+    "users": [],
+    "channels": [
+      {
+        "id": "general",
+        "name": "General",
+        "createdBy": "sistema",
+        "messages": [
+          {
+            "user": "Sistema",
+            "text": "¡Bienvenido al canal general!",
+            "timestamp": "2023-05-02T17:38:51.000Z"
+          }
+        ]
+      }
+    ]
+  }
+  
